@@ -1,15 +1,13 @@
 import React from 'react';
 
-const InfoCard = () => {
+const InfoCard = ({clock,cardTitle,bgClass}) => {
     return (
-        <div class="card lg:card-side bg-base-100 shadow-xl">
-        <figure><img src="https://api.lorem.space/image/album?w=400&h=400" alt="Album"/></figure>
-        <div class="card-body">
-          <h2 class="card-title">New album is released!</h2>
+        <div class={`card lg:card-side bg-base-100 shadow-xl ${bgClass}`}>
+        <figure className='pl-5'><img src={clock} alt="Album"/></figure>
+        <div class="card-body text-white">
+          <h2 class="card-title">{cardTitle}</h2>
           <p>Click the button to listen on Spotiwhy app.</p>
-          <div class="card-actions justify-end">
-            <button class="btn btn-primary">Listen</button>
-          </div>
+         
         </div>
       </div>
     );
