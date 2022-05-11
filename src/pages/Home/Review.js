@@ -3,7 +3,7 @@ import React from 'react';
 const Review = ({reviewItem}) => {
     const {name, address, img,review}= reviewItem;
     return (
-        <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card lg:max-w-lg bg-base-100 shadow-xl">
         <div class="card-body">
           <p>{review}</p>
         </div>
