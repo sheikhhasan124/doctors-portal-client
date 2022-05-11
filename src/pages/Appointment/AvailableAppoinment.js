@@ -18,7 +18,8 @@ const AvailableAppoinment = ({date}) => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {services.map(service=><Service key={service._id} setTreatment={setTreatment} service={service}/>)}
             </div>
-            {treatment&& <BookingModal treatment={treatment}/>}
+            {treatment&& <BookingModal date={date} treatment={treatment}
+             setTreatment={setTreatment}/>}
         </div>
     );
 };
