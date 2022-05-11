@@ -1,4 +1,5 @@
 import React from 'react';
+import Fotter from '../Shared/Fotter';
 import Banner from './Banner';
 import Contact from './Contact';
 import Info from './Info';
@@ -9,7 +10,7 @@ import TreatMentService from './TreatMentService';
 
 const Home = () => {
     return (
-        <div className='px-12'>
+        <div>
             <Banner/>
             <Info/>
             <Services/>
@@ -17,6 +18,7 @@ const Home = () => {
             <MakeAppoinment/>
             <Testimonial/>
             <Contact/>
+            <Fotter/>
         </div>
     );
 };

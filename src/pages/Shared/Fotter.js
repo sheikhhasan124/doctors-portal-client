@@ -3,11 +3,13 @@ import fotterbg from '../../assets/images/footer.png'
 
 const Fotter = () => {
     return (
-        <section className=' bg-no-repeat w-120 h-full bg-left-top' style={{
-            background:`url(${fotterbg})`
-  }}>
-            <div>
-            <footer  class="footer p-10  text-slate-500 px-40 ">
+        <section className='mt-12'>
+           
+            <footer style={{
+                background: `url(${fotterbg})`, backgroundSize:'cover',
+            }} class="p-10  text-slate-500 px-40 bg-top">
+
+            <div className='footer'>
             <div>
                 <span class="footer-title">Services</span> 
                 <a class="link link-hover">Branding</a>
@@ -28,9 +30,10 @@ const Fotter = () => {
                 <a class="link link-hover">Privacy policy</a>
                 <a class="link link-hover">Cookie policy</a>
             </div>
-           </footer>
             </div>
-         <p className='text-center mt-20 mb-12 text-black text-xl'>Copy right all reserved</p>
+             <p className='text-center mt-24 mb-12 text-black text-xl'>Copy right all reserved</p>
+           </footer>
+            
         </section>
     );
 };

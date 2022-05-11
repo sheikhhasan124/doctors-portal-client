@@ -1,9 +1,12 @@
 import React from 'react';
+import Fotter from '../Shared/Fotter';
+import AppointMentBanner from './AppointMentBanner';
 
 const Appointment = () => {
     return (
         <div>
-            <h2>appointment </h2>
+            <AppointMentBanner/>
+            <Fotter/>
         </div>
     );
 };
