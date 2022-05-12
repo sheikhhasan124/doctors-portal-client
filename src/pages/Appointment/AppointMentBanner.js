@@ -7,9 +7,9 @@ import { format } from 'date-fns';
 const AppointMentBanner = ({date, setDate}) => {
     
     return (
-        <div class="hero min-h-screen ">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-            <img src={chair} alt="chair" class="max-w-lg ml-12 rounded-lg shadow-2xl" />
+        <div className ="hero min-h-screen ">
+        <div className ="hero-content flex-col lg:flex-row-reverse">
+            <img src={chair} alt="chair" className="max-w-lg ml-12 rounded-lg shadow-2xl" />
             <div>
             <DayPicker 
               mode="single"
