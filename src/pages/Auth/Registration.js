@@ -25,14 +25,14 @@ const Registration = () => {
       if(error || gError){
           shoError = <small><p className='text-red-500'>{error.message  || gError.message}</p></small>
       }
-    if(user){
-        console.log(user)
+    if(user || gUser){
+        // console.log(user)
+        navigate('/')
     }
     const onSubmit = async(data) => {
      await createUserWithEmailAndPassword(data.email, data.password)
      await updateProfile({ displayName:data.name });
-      navigate('/appoinment')
-      console.log('update done')
+      // console.log('update done')
     };
     return (
         <div>
