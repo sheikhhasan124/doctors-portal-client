@@ -12,6 +12,8 @@ import Reviews from './pages/Reviews/Reviews';
 
 import Navber from './pages/Shared/Navber';
 import NotFound from './pages/Shared/NotFound';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -32,7 +34,7 @@ function App() {
         <Route path="registration" element={<Registration/>}></Route>
         <Route path="*" element={<NotFound/>}></Route>
       </Routes>
-      
+      <ToastContainer/>
     </div>
   );
 }
