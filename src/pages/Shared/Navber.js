@@ -15,7 +15,7 @@ const Navber = () => {
         <li><Link to="/appoinment">Appoinment</Link></li>
         <li><Link to="/reviews">Reviews</Link></li>
         <li><Link to="/contact">Contact Us</Link></li>
-        <li>{user? <button onClick={signout} class="btn btn-ghost">Sign Out</button> : <Link to="/login">Login</Link>}</li>
+        <li>{user? <button onClick={signout} className="btn btn-ghost">Sign Out</button> : <Link to="/login">Login</Link>}</li>
   </>
     return (
         <div className="navbar bg-base-100">
