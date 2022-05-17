@@ -8,6 +8,7 @@ const Navber = () => {
   const [user]=useAuthState(auth)
   const signout=()=>{
     signOut(auth)
+    localStorage.removeItem('accessToken')
   }
   const menuItems = <>
         <li><Link to="/">Home</Link></li>

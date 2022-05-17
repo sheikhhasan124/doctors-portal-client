@@ -6,11 +6,25 @@ const MyAppointment = () => {
     const [user]=useAuthState(auth)
     const [appoinments, setAppoinment]=useState([])
 
- 
+    // akane user.email dele sei user ar appoinment asbe.,,bt onno user.gmail dele o data asbe jaha kammo na,,
+    // sei jonno user.email ar jwt check kore tar por data dete hobe
     useEffect(()=>{
         if(user){
-            fetch(`http://localhost:5000/booking?patient=${user.email}`)
-        .then(res=>res.json())
+            fetch(`http://localhost:5000/booking?patient=${user.email}`,{
+              method:'GET',
+              headers:{
+                'authorization':`Bearer ${localStorage.getItem('accessToken')}`
+              }
+            })
+        .then(res=> {
+          console.log(res)
+          if(res.status === 401 || res.status === 403){
+            
+          }
+          // jkon multiline korbo tokon retur korte hobe
+
+         return res.json()
+        })
         .then(data=> setAppoinment(data))
         }
      },[user])
