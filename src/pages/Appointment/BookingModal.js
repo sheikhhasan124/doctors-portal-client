@@ -32,7 +32,12 @@ const BookingModal = ({date, treatment,setTreatment}) => {
         .then(res=>res.json())
         .then(data=>{
           console.log(data)
-           toast('appointment success')
+          if(data.success){
+             toast(`appoinment is set, ${formattedDate} at ${slot}`)
+           }
+           else{
+             toast.error(`already have an appoinment on ${data.booking.date} at ${data.booking.slot}`)
+           }
           //to close the modal
            setTreatment(null)
         })
@@ -44,8 +49,8 @@ const BookingModal = ({date, treatment,setTreatment}) => {
   <div className="modal-box">
   <label htmlFor="booking-modal"className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
     <h3 className="font-bold text-lg text-secondary text-center mb-3">{name}</h3>
-    <form onSubmit={handleBooking}className='grid grid-cols-1 gap-3 justify-items-center'>
-    <input type="text" disabled value={format(date,'PP')} className="input input-bordered w-full max-w-xs" />
+    <form onSubmit={handleBooking} className='grid grid-cols-1 gap-3 justify-items-center'>
+    <input type="text"  value={format(date,'PP')} className="input input-bordered w-full max-w-xs" />
     <select name='slt'className="select select-bordered w-full max-w-xs">
          {slot.map((slt, index)=><option key={index} value={slt}>{slt}</option>)}
         
