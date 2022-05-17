@@ -3,7 +3,7 @@ const { useState, useEffect } = require("react")
 const useToken=user=>{
     const [token, setToken]=useState('');
     useEffect(()=>{
-        console.log(user)
+        // console.log(user)
         const email = user?.user?.email;
         const currentUser= {email:email}
         if(email){

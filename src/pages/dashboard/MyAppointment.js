@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase_init';
+import {useNavigate}from 'react-router-dom'
+import { signOut } from 'firebase/auth';
 
 const MyAppointment = () => {
     const [user]=useAuthState(auth)
     const [appoinments, setAppoinment]=useState([])
+    const navigate = useNavigate()
 
     // akane user.email dele sei user ar appoinment asbe.,,bt onno user.gmail dele o data asbe jaha kammo na,,
     // sei jonno user.email ar jwt check kore tar por data dete hobe
@@ -19,7 +22,9 @@ const MyAppointment = () => {
         .then(res=> {
           console.log(res)
           if(res.status === 401 || res.status === 403){
-            
+            signOut(auth)
+            localStorage.removeItem('accessToken')
+              navigate('/')
           }
           // jkon multiline korbo tokon retur korte hobe
 
