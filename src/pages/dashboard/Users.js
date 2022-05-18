@@ -5,8 +5,13 @@ import UserRow from "./UserRow";
 
 const Users = () => {
   // here isloading work like default value in useState([])
-  const { data: users, isLoading } = useQuery("users", () =>
-    fetch("http://localhost:5000/user").then((res) => res.json())
+  const { data: users, isLoading ,refetch} = useQuery("users", () =>
+    fetch("http://localhost:5000/user",{
+        method:'GET',
+        headers:{
+           authorization:`Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then((res) => res.json())
   );
   if (isLoading) {
     return <Loading />;
@@ -27,7 +32,7 @@ const Users = () => {
           </thead>
           <tbody>
             {users.map((user,index) => (
-              <UserRow key={user._id} user={user}></UserRow>
+              <UserRow key={user._id} refetch={refetch} index={index} user={user}></UserRow>
             ))}
           </tbody>
         </table>
