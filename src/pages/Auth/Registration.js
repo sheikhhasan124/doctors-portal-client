@@ -130,7 +130,7 @@ const Registration = () => {
                 </form>
                    <p>New to doctord portal <Link className='text-secondary' to="/registration ">Please create account</Link></p>
                 <div className="divider">OR</div>                
-                <button onClick={()=>signInWithGoogle()} className="btn btn-outline">Button</button>
+                <button onClick={()=>signInWithGoogle()} className="btn btn-outline">sign in with google</button>
             </div>
             </div>
            </div>
