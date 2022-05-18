@@ -19,6 +19,7 @@ import MyReview from "./pages/dashboard/MyReview";
 import Users from "./pages/dashboard/Users";
 import RequireAdmin from "./pages/dashboard/RequireAdmin";
 import AddDoctors from "./pages/dashboard/AddDoctors";
+import ManegeDoctors from "./pages/dashboard/ManegeDoctors";
 
 function App() {
   return (
@@ -27,36 +28,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home></Home>}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route
-          path="/appoinment"
-          element={
-            <RequireAuth>
-              <Appointment />
-            </RequireAuth>
-          }
-        ></Route>
-        <Route
-          path="/dashboard"
-          element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          }
-        >
+        <Route path="/appoinment"element={<RequireAuth><Appointment /></RequireAuth>}></Route>
+        <Route path="/dashboard"element={<RequireAuth><Dashboard /></RequireAuth>}>
           <Route index element={<MyAppointment />}></Route>
           <Route path="review" element={<MyReview />}></Route>
-          <Route path="users" element={
-              <RequireAdmin>
-                <Users />
-              </RequireAdmin>
-            }
-          ></Route>
-          <Route path="adddoctor" element={
-              <RequireAdmin>
-                <AddDoctors/>
-              </RequireAdmin>
-            }
-          ></Route>
+          <Route path="users" element={<RequireAdmin><Users /></RequireAdmin>}></Route>
+          <Route path="adddoctor" element={<RequireAdmin><AddDoctors/></RequireAdmin>}></Route>
+          <Route path="managedoctor" element={<RequireAdmin><ManegeDoctors/></RequireAdmin>}></Route>
         </Route>
         <Route path="/reviews" element={<Reviews />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
