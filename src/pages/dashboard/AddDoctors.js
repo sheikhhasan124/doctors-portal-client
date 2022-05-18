@@ -1,13 +1,53 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from 'react-query'
+import Loading from "../Shared/Loading";
 
 const AddDoctors = () => {
   const {register,formState: { errors }, handleSubmit,} = useForm();
 
+const {data:services,isLoading}= useQuery('services',()=>fetch('http://localhost:5000/service').then(res=>res.json()))
+
+const imageStorage_Key = '7b9935e9f253a9586f1b45588dd38ebf'
+
+/**
+ * 3 ways to store images
+ * 1- third party storage // free open public storage is ok for practice
+ * 2- your own storage in your own server(file system)
+ * 3- databaser = mongodb
+ * 
+ * YUP: to validate file : seach yup file validation for react hook form 
+*/
   const onSubmit = async(data) => {
-   
-     // console.log('update done')
+   const image = data.image[0]
+   const url = `https://api.imgbb.com/1/upload?key=${imageStorage_Key}`
+   const formData = new FormData();
+   formData.append('image', image)
+   fetch(url,{
+     method:'POST',
+     body:formData
+   })
+   .then(res=>res.json())
+   .then(result=>{
+     if(result.success){
+       const img = result.data.url;
+       const doctor = {
+         name : data.name,
+         email : data.email,
+         speciality : data.speciality,
+         img : img
+       }
+     }
+     // send to your data base the doctor info
+    //  console.log('result',result)
+   })
+    //  console.log(data)
    };
+
+   if(isLoading){
+       return <Loading/>
+   }
+
   return (
     <div>
       <h2 className="text-4xl text-purple-600">Add new doctors</h2>
@@ -44,6 +84,7 @@ const AddDoctors = () => {
             )}
           </label>
         </div>
+
         <div className="form-control w-full max-w-xs">
           <label className="label">
             <span className="label-text">email</span>
@@ -80,32 +121,36 @@ const AddDoctors = () => {
           <label className="label">
             <span className="label-text">specility</span>
           </label>
+          <select {...register("speciality")} class="select select-bordered w-full max-w-xs">
+              {services.map(service=><option key={service._id} value={service.name} selected>{service.name}</option>)}
+        </select>
+        </div>
+
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="label-text">Photo</span>
+          </label>
           <input
-            type="text"
-            placeholder="specility"
-            {...register("password", {
+            type="file"
+            {...register("image", {
               required: {
                 value: true,
-                message: "specility is required",
+                message: "image is required",
               },
-              
+             
             })}
             className="input input-bordered w-full max-w-xs"
           />
           <label className="label">
-            {errors.password?.type === "required" && (
+            {errors.name?.type === "required" && (
               <span className="label-text-alt text-red-500">
-                {errors.password.message}
+                {errors.name.message}
               </span>
             )}
-            {errors.password?.type === "minLength" && (
-              <span className="label-text-alt text-red-500">
-                {errors.password.message}
-              </span>
-            )}
+            
           </label>
-         
         </div>
+
         <input
           className="btn w-full max-w-xs text-white"
           value="add"
