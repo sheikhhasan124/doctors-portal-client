@@ -20,6 +20,7 @@ const imageStorage_Key = '7b9935e9f253a9586f1b45588dd38ebf'
 */
   const onSubmit = async(data) => {
    const image = data.image[0]
+   // akane img ta imgdd server store kora hoase tar por sei img ar link and baki info  gula express server ar maddome mongo db te save korbo
    const url = `https://api.imgbb.com/1/upload?key=${imageStorage_Key}`
    const formData = new FormData();
    formData.append('image', image)
@@ -37,8 +38,20 @@ const imageStorage_Key = '7b9935e9f253a9586f1b45588dd38ebf'
          speciality : data.speciality,
          img : img
        }
+       // send to your data base the doctor info
+       fetch('http://localhost:5000/doctor',{
+         method:'POST',
+         headers:{
+           'content-type': 'application/json',
+           authorization : `Bearer ${localStorage.getItem('accessToken')}`
+         },
+         body: JSON.stringify(doctor)
+       })
+       .then(res=>res.json())
+       .then(inserted=>{
+         console.log('doctor', inserted)
+       })
      }
-     // send to your data base the doctor info
     //  console.log('result',result)
    })
     //  console.log(data)
