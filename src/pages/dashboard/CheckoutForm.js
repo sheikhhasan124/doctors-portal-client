@@ -8,9 +8,10 @@ const CheckoutForm = ({appoinment}) => {
     const elements = useElements()
     const [cardError, setCardError]=useState('')
     const [success, setSuccess]=useState('')
+    const [tracjectionId, setTranjectionId]=useState('')
     const [clientSecret, setClientSecret]=useState('')
    
-     const {price,patient}=appoinment;
+     const {price,patient,patientName}=appoinment;
 
     useEffect(()=>{
       fetch('http://localhost:5000/create-payment-intent',{
@@ -57,6 +58,7 @@ const CheckoutForm = ({appoinment}) => {
           payment_method: {
             card: card,
             billing_details: {
+              name: patientName,
              email: patient
             },
           },
@@ -68,6 +70,7 @@ const CheckoutForm = ({appoinment}) => {
       }
       else{
           setCardError('')
+          setTranjectionId(paymentIntent)
           console.log(paymentIntent)
            setSuccess('your payment completed')
       }
@@ -99,7 +102,7 @@ const CheckoutForm = ({appoinment}) => {
           cardError && <p className='text-red-500'>{cardError}</p>
       }
       {
-          success && <p className='text-green-500'>{success}</p>
+          success && <p className='text-green-500'>{success} tranjactionId:{tracjectionId.id}</p>
       }
        </>
     );
