@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase_init';
-import {useNavigate}from 'react-router-dom'
+import {Link, useNavigate}from 'react-router-dom'
 import { signOut } from 'firebase/auth';
 
 const MyAppointment = () => {
@@ -19,16 +19,15 @@ const MyAppointment = () => {
                 'authorization':`Bearer ${localStorage.getItem('accessToken')}`
               }
             })
-        .then(res=> {
-          console.log(res)
-          if(res.status === 401 || res.status === 403){
-            signOut(auth)
-            localStorage.removeItem('accessToken')
-              navigate('/')
-          }
-          // jkon multiline korbo tokon retur korte hobe
-
-         return res.json()
+            .then(res=> {
+              console.log(res)
+              if(res.status === 401 || res.status === 403){
+                signOut(auth)
+                localStorage.removeItem('accessToken')
+                navigate('/')
+              }
+              // jkon multiline korbo tokon retur korte hobe
+             return res.json()
         })
         .then(data=> setAppoinment(data))
         }
@@ -48,6 +47,7 @@ const MyAppointment = () => {
         <th>Date</th>
         <th>Time</th>
         <th>Treatment</th>
+        <th>Payment</th>
       </tr>
     </thead>
     <tbody>
@@ -58,15 +58,17 @@ const MyAppointment = () => {
         <td>{a.date}</td>
         <td>{a.slot}</td>
         <td>{a.treatment}</td>
+        <td>
+          {(a.price && !a.paid )&& <Link to={`/dashboard/payment/${a._id}`}><button className='btn btn-xs btn-success'>pay</button></Link>}
+          {(a.price && a.paid )&& <span className='text-success'>paid</span>}
+          
+          </td>
       </tr>)  
      }
-       
-     
-    
     </tbody>
   </table>
 </div>
-        </div>
+</div>
     );
 };
 
