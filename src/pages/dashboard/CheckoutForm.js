@@ -1,21 +1,23 @@
-import { async } from '@firebase/util';
+
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+
 import React, { useEffect, useState } from 'react';
 
 const CheckoutForm = ({appoinment}) => {
     const stripe = useStripe()
     const elements = useElements()
     const [cardError, setCardError]=useState('')
+    const [success, setSuccess]=useState('')
     const [clientSecret, setClientSecret]=useState('')
    
-     const {price}=appoinment;
+     const {price,patient}=appoinment;
 
     useEffect(()=>{
       fetch('http://localhost:5000/create-payment-intent',{
           method:'POST',
           headers:{
-              'content-type':'application/json',
-            'authorization':`Bearer ${localStorage.getItem('accessToken')}`
+              'content-type' : 'application/json',
+            
           },
           body: JSON.stringify({price})
       })
@@ -46,7 +48,29 @@ const CheckoutForm = ({appoinment}) => {
         });
 
        setCardError(error?.message || '')
-          
+        setSuccess('')
+
+       // confirm card payment 
+       const {paymentIntent, error: intentError} = await stripe.confirmCardPayment(
+       clientSecret,
+        {
+          payment_method: {
+            card: card,
+            billing_details: {
+             email: patient
+            },
+          },
+        },
+      );
+        
+      if(intentError){
+          setCardError(intentError?.message)
+      }
+      else{
+          setCardError('')
+          console.log(paymentIntent)
+           setSuccess('your payment completed')
+      }
     }
     return (
        <>
@@ -73,6 +97,9 @@ const CheckoutForm = ({appoinment}) => {
       </form>
       {
           cardError && <p className='text-red-500'>{cardError}</p>
+      }
+      {
+          success && <p className='text-green-500'>{success}</p>
       }
        </>
     );
