@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Service = ({service,setTreatment}) => {
-    const {name, slot}=service;
+    const {name, slot,price}=service;
    
     return (
         <div className="card la:max-w-lg bg-base-100 shadow-xl text-center">
@@ -11,6 +11,7 @@ const Service = ({service,setTreatment}) => {
       ? <span>{slot[0]}</span>
       : <span className='text-red-500'>Try another date</span>
     }</p>
+    <p>$ price: {price}</p>
     <p>{slot.length} {slot.length>1? 'Spaces':'space'} available</p>
     <div className="card-actions justify-center">
       <label
